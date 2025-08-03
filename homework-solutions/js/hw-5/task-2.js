@@ -18,9 +18,7 @@
  */
 let fizzBuzzResult = '';
 for (let i = 1; i <= 100; i++) {
-    if (i == 100) {
-        fizzBuzzResult += `${i} - делится на 5`;
-    } else if (i % 3 == 0 && i % 5 == 0) {
+    if (i % 3 == 0 && i % 5 == 0) {
         fizzBuzzResult += `${i} - делится и на 3 и на 5\n`;
     } else if (i % 3 == 0) {
         fizzBuzzResult += `${i} - делится на 3\n`;
@@ -30,6 +28,7 @@ for (let i = 1; i <= 100; i++) {
         fizzBuzzResult += `${i}\n`;
     }
 }
+fizzBuzzResult = fizzBuzzResult.trim();
 // console.log(fizzBuzzResult);
 
 export { fizzBuzzResult };
