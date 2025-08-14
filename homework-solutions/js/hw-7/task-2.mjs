@@ -4,8 +4,21 @@
 */
 
 function isPalindrom(word) {
-  // Ваш код
+  let flag = true;
+  if (typeof word !== "string") {
+    return false;
+  }
+
+  for (let i = 0; i < word.length/2; i++) {
+    if (word[i].toLowerCase() !== word[word.length - 1 - i].toLowerCase()) {
+      flag = false;
+      break;
+    }
+  }
+  return flag;
 }
+
+// console.log(isPalindrom(1))
 
 /*
  2. findLongestWords()
@@ -15,7 +28,24 @@ function isPalindrom(word) {
 */
 
 function findLongestWords(sentence) {
-  // Ваш код
+  if (!sentence || typeof sentence !== "string") {
+    return []
+  }
+
+  const splitedString = sentence.split(" ");
+  let longestString = [""];
+
+  for (let str of splitedString) {
+    if (str.length > longestString.at(-1).length) {
+      longestString = [];
+      longestString.push(str);
+    } else if (str.length === longestString.at(-1).length) {
+      longestString.push(str);
+    }
+  }
+  return longestString;
 }
+
+// console.log(findLongestWords("one two jbc fdd"))
 
 export { isPalindrom, findLongestWords };

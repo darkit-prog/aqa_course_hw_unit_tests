@@ -9,7 +9,15 @@
 */
 
 function digitalRoot(number) {
-  // Ваш код
+  let sum = number % 10;
+  number > 9 ? sum += digitalRoot(Math.floor(number / 10)) : sum = number;
+
+  if (sum > 9) {
+    sum = digitalRoot(sum);
+  }
+  return sum;
 }
+
+// console.log(digitalRoot(0));
 
 export { digitalRoot };
