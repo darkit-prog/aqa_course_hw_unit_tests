@@ -16,10 +16,20 @@ const words = [
   'universe',
   'environment',
   'queue',
+  'php'
 ];
 
 function sortedByVowels(wordsArr) {
-  // Ваш код
+  const vowels = 'aeiouy';
+  const lowerCasedWords = wordsArr.map((word) => word.toLowerCase());
+
+  if (!wordsArr.length) {
+    return [];
+  }
+
+  return lowerCasedWords.toSorted((a, b) => [...a].filter((char) => vowels.includes(char)).length - [...b].filter((char) => vowels.includes(char)).length);
 }
+
+// console.log(sortedByVowels(words))
 
 export { sortedByVowels };
