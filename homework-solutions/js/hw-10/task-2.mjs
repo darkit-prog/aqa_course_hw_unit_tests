@@ -8,7 +8,14 @@
 */
 
 function countOccurrences(arr) {
-  // ваш код
+  let result = {};
+  for (const number of arr) {
+    result[number] = (result[number] ?? 0) + 1;
+  };
+  return result;
 }
+
+// const numbers = [1, 2, 2, 3, 4, 4, 4, 5];
+// console.log(countOccurrences(numbers))
 
 export { countOccurrences };
