@@ -16,11 +16,36 @@
 */
 
 function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 function uniqueRandomGenerator(n) {
-  // Ваш код
+  let numbers = [...Array(n + 1).keys()];
+  numbers.shift()
+
+  return function () {
+    if (numbers.length === 0) {
+      return 'All numbers were received';
+    }
+
+    let index = getRandomArbitrary(0, numbers.length - 1);
+    const result = numbers[index];
+
+    numbers.splice(index, 1);
+    // console.log(result, numbers)
+    return result;
+  }
 }
+
+// let randomNumbers = uniqueRandomGenerator(5);
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
+// randomNumbers()
 
 export { uniqueRandomGenerator };
