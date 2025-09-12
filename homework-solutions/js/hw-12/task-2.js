@@ -2,7 +2,14 @@
 async function createTodo(body) {
     try {
         // Внутри функции шлите пост запрос на "https://jsonplaceholder.typicode.com/todos" используя fetch.
-        const response = await fetch("https://jsonplaceholder.typicode.com/todos", {method: "post"});
+        // const response = await fetch("https://jsonplaceholder.typicode.com/todos", {method: "post"});
+        const response = await fetch("https://jsonplaceholder.typicode.com/todos", {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
 
         // После получения респонса проверьте что статус === 201. Если статус не 201 - пробросить ошибку
         if (response.status !== 201) {

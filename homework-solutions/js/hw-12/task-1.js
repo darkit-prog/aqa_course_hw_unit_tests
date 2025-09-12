@@ -51,14 +51,14 @@ promNumberSecond
 //   в консоль результаты работы каждого промиса через .then
 
 Promise.all([promiseNumber(1), promiseNumber(2), promiseNumber(3)])
-    .then(promises => promises.map(element => console.log(element)))
+    .then(promises => promises.forEach(promises => console.log(promises)))
     .catch(reject => console.log(reject));
 
 // 6. Вызовите метод Promise.allSettled([promiseNumber(1), promiseNumber(2), promiseNumber(3)]), обработайте его результаты и последовательно выведите
 //   в консоль статус и результат каждого промиса через .then
 
 Promise.allSettled([promiseNumber(1), promiseNumber(2), promiseNumber(3)])
-    .then(promises => promises.map(element => console.log(element)))
+    .then(promises => promises.forEach(promises => console.log(promises)))
     .catch(reject => console.log(reject));
 
 // 7. Повторите пункты 5 и 6 используя асинхронные функции с блоком try..catch
@@ -66,7 +66,7 @@ const arrPromises = [promiseNumber("d"), promiseNumber(2), promiseNumber(3)];
 
 async function promiseAll() {
     try {
-        (await Promise.all(arrPromises)).map((element) => console.log(element));
+        (await Promise.all(arrPromises)).forEach(promises => console.log(promises));
     } catch(error) {
         console.error(error);
     }
@@ -74,7 +74,7 @@ async function promiseAll() {
 
 async function promiseAllSettled() {
     try {
-        (await Promise.allSettled(arrPromises)).map((element) => console.log(element));
+        (await Promise.allSettled(arrPromises)).forEach(promises => console.log(promises));
     } catch(error) {
         console.error(error);
     }
