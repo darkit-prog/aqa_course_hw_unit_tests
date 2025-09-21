@@ -33,7 +33,7 @@ const person3: ProductOwner = {
     salary: 150000
 }
 
-function getAvgSalary<T extends Developer | Designer | ProductOwner> (arr: T[]): number {
+function getAvgSalary<T extends { salary: number } > (arr: T[]): number {
     if (arr.length === 0) {
         return 0;
     }
