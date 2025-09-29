@@ -102,19 +102,19 @@ class Enterprise implements IEnterprise {
   }
 
   // Отправляем инфу об искаемом департаменте
-  public getInfoAboutFindingDepartment(id: number): Department {
+  private getDepartmentInfo(id: number): Department {
     const department = this.departments.find(dep => dep.id === id);
     if (!department) throw new Error(`Вы написали несуществующий id ${id} отдела`);
     return department;
   }
 
   public editDepartmentInEnterprise(id: number, name: string) {
-    const department = this.getInfoAboutFindingDepartment(id);
+    const department = this.getDepartmentInfo(id);
     department.editDepartmentName(name);
   }
 
   public deleteDepartmentInEnterprise(id: number) {
-    const department = this.getInfoAboutFindingDepartment(id);
+    const department = this.getDepartmentInfo(id);
     if (department.employees_count) throw new Error("В этом отделе есть сотрудники");
 
     const index = this.departments.indexOf(department);
@@ -122,8 +122,8 @@ class Enterprise implements IEnterprise {
   }
 
   public moveEmployeesInOneEnterprise(id1: number, id2: number) {
-    const department1 = this.getInfoAboutFindingDepartment(id1);
-    const department2 = this.getInfoAboutFindingDepartment(id2);
+    const department1 = this.getDepartmentInfo(id1);
+    const department2 = this.getDepartmentInfo(id2);
     if (!department1.employees_count) throw new Error(`В отделе ${id1} нет сотрудников`);
 
     const emp_count = department1.employees_count;
@@ -147,7 +147,7 @@ class EnterpriseCollection {
   }
 
   // Возвращает ищущийся департамент
-  private getEnterpriseInfoAboutFindingDepartment(value: number | string): Enterprise {
+  private getEnterpriseByDepartment(value: number | string): Enterprise {
     if (typeof value === "number") {
       const department = this.enterprises.find(ent => ent.departments.find(dep => dep.id === value));
       if (!department) throw new Error(`Вы написали несуществующий id ${value} отдела`);
@@ -171,7 +171,7 @@ class EnterpriseCollection {
   }
 
   // 1. Вывести все предприятия и их отделы. Рядом указать количество сотрудников. Для предприятия посчитать сумму всех сотрудников во всех отделах.
-  public getAllAboutCollection() {
+  public getAll() {
     this.enterprises.forEach((ent) => {
       console.log(`${ent.name} (${ent.countEmployeesInEnterprise()})`);
       ent.printAllDepartmentsFromEnterprise();
@@ -180,7 +180,7 @@ class EnterpriseCollection {
 
   // 2. Написать функцию, которая будет принимать 1 аргумент (id отдела или название отдела и возвращать предприятие, к которому относится).
   public getEnterpriseName(value: number | string): string{
-    return this.getEnterpriseInfoAboutFindingDepartment(value).name;
+    return this.getEnterpriseByDepartment(value).name;
   }
 
   // 3. Написать функцию, которая будет добавлять предприятие. В качестве аргумента принимает название предприятия
@@ -205,7 +205,7 @@ class EnterpriseCollection {
 
   // 6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела
   public editDepartment(id: number, name: string) {
-    const enterprise = this.getEnterpriseInfoAboutFindingDepartment(id);
+    const enterprise = this.getEnterpriseByDepartment(id);
     enterprise.editDepartmentInEnterprise(id, name);
   }
 
@@ -217,14 +217,14 @@ class EnterpriseCollection {
 
   // 8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
   public deleteDepartment(id: number) {
-    const enterprise = this.getEnterpriseInfoAboutFindingDepartment(id);
+    const enterprise = this.getEnterpriseByDepartment(id);
     enterprise.deleteDepartmentInEnterprise(id);
   }
 
   // 9. Написать функцию для переноса сотрудников между отделами одного предприятия. В качестве аргумента принимает два значения: id отдела, 
   // из которого будут переноситься сотрудники и id отдела, в который будут переноситься сотрудники).
   public moveEmployees(id1: number, id2: number) {
-    const enterprise = this.getEnterpriseInfoAboutFindingDepartment(id1);
+    const enterprise = this.getEnterpriseByDepartment(id1);
     enterprise.moveEmployeesInOneEnterprise(id1, id2);
   }
 }
@@ -245,7 +245,7 @@ enterprise.addDepartment(2, "Отдел маркетинга", 20);
 enterprise.addDepartment(2, "Отдел охраны труда", 5);
 enterprise.addDepartment(3, "Отдел аналитики", 0);
 // enterprise.addDepartment(5, "Дизайнер", 5);
-// enterprise.getAllAboutCollection();
+// enterprise.getAll();
 
 console.log(enterprise.getEnterpriseName(8));
 console.log(enterprise.getEnterpriseName("Отдел аналитики"));
@@ -256,16 +256,16 @@ console.log(enterprise.getEnterpriseName("Отдел аналитики"));
 enterprise.editEnterprise(1, "Новое название предприятия")
 enterprise.editEnterprise(3, "Хто я");
 // enterprise.editEnterprise(4, "Тест");
-// enterprise.getAllAboutCollection();
+// enterprise.getAll();
 
 enterprise.editDepartment(6, "Новое название отдела");
 enterprise.editDepartment(10, "Ноунейм");
 // enterprise.editDepartment(100, "Новое название отдела");
-// enterprise.getAllAboutCollection();
+// enterprise.getAll();
 
 // enterprise.deleteEnterprise(3);
 // enterprise.deleteEnterprise(100);
-// enterprise.getAllAboutCollection();
+// enterprise.getAll();
 
 // enterprise.deleteDepartment(10);
 // enterprise.deleteDepartment(5);
@@ -273,4 +273,4 @@ enterprise.editDepartment(10, "Ноунейм");
 
 enterprise.moveEmployees(5, 6);
 // enterprise.moveEmployees(5, 6);
-enterprise.getAllAboutCollection();
+enterprise.getAll();
